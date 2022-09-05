@@ -1,4 +1,3 @@
-
 class Ship {
     length: number;
     hitLocations: number[];

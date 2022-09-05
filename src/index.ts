@@ -1,9 +1,4 @@
-function component() {
-    const element = document.createElement('div');
-    console.log("works")
-    return element;
-  }
+import { game } from "./factories/UI/game";
+import "./styles/styles.scss";
 
-  
-  
-  document.body.appendChild(component());
+game();

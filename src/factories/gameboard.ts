@@ -34,6 +34,20 @@ const Gameboard = () => {
         return true
     };
 
+    const randomlyPlaceShips = () =>{
+        const Carrier = new Ship(5);
+        const Battleship = new Ship(4);
+        const Cruiser = new Ship(3);
+        const Submarine = new Ship(3);
+        const Destroyer = new Ship(2);
+
+        placeShip(0,0,Carrier,false);
+        placeShip(4,0,Battleship,false);
+        placeShip(9,0,Cruiser,false);
+        placeShip(0,5,Submarine,true);
+        placeShip(0,8,Destroyer,true);
+    }
+
     const gameOver = () => {
         // check board not empty
         for (let i = 0; i < SIZE; i++) {
@@ -79,7 +93,7 @@ const Gameboard = () => {
         return false;
     };
 
-    return {initBoard, placeShip,receiveAttack, gameOver, board };
+    return {initBoard, placeShip,receiveAttack, gameOver, board, randomlyPlaceShips };
 };
 
 export { Gameboard }
