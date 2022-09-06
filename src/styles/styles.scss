@@ -24,6 +24,7 @@ body {
     text-align: center;
 
     .grid {
+        
         border: 1rem solid $dark-sea;
         border-radius: 10%;
         margin: 2rem;
@@ -41,26 +42,39 @@ body {
     
             &[data-contents='ship'] {
                 background-color: $yellow-ship;
-                border-radius: 10%;
+                //border-radius: 10%;
             }
-            // &[data-contents="ship-up"] {
-            //     border-radius: 0;
-            //     width: 0;
-            //     height: 0;
-            //     border: 1rem solid transparent;
-            //     border-top: 0;
-            //     border-bottom:2rem solid $yellow-ship;
-            //     background-color: $light-sea;
-            // }
-            // &[data-contents="ship-down"] {
-            //     border-radius: 0;
-            //     width: 0;
-            //     height: 0;
-            //     border: 2rem solid $yellow-ship;
-            //     border-top: 1rem solid transparent;
-            //     border-bottom:0;
-            //     background-color: $light-sea;
-            // }
+            &[data-contents="ship-up"] {
+                width: 0;
+                height: 0;
+                border: 1rem solid transparent;
+                border-top: 0;
+                border-bottom:2rem solid $yellow-ship;
+                // background-color: $light-sea;
+                
+            }
+            &[data-contents="ship-down"] {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 2rem 1rem 0 1rem;
+                border-color: $yellow-ship transparent transparent transparent;
+            }
+            &[data-contents="ship-left"] {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 1rem 2rem 1rem 0rem;
+                border-color: transparent $yellow-ship transparent transparent;
+            }
+            &[data-contents="ship-right"] {
+                
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 1rem 0rem 1rem 2rem;
+                border-color: transparent  transparent transparent $yellow-ship;
+            }
         }
     
     }
