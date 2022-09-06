@@ -23,8 +23,23 @@ const game = () => {
 
 
     // player 1 attack enemy 
-    const enemySea = document.querySelectorAll(".main > .div");
-    console.log(enemySea)
+    const enemySea =  document.querySelector(".player .grid.Enemy").children as HTMLCollection | null;
+    
+    for (let i = 0; i<enemySea.length; i++){
+        let current = enemySea[i] as HTMLElement | null;
+        enemySea[i].addEventListener("click", () => { 
+            if(playerAttacksEnemy(parseInt(current.dataset.row), parseInt(current.dataset.col))){
+                
+            }
+
+        });
+    }
+
+    const playerAttacksEnemy = (row:number, col:number) =>{
+        return (player1.attack(row, col, player2Board))
+    }
+
+
     // enemy attack player one
 
     // stop if someone wins

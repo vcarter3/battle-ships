@@ -110,6 +110,7 @@ const Gameboard = () => {
         // does it hit a ship
         if (board[row][col]) {
             // hit a ship!
+
             let hitIndex = 0
             // is horizontal   eg. 0 1 2 3 4
             if (col > 0 && board[row][col - 1] || col < SIZE - 1 && board[row][col + 1]) {

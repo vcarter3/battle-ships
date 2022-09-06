@@ -1,6 +1,11 @@
+import { functionDeclaration } from "@babel/types";
+
 const main = document.querySelector(".main");
 
 function createBoard(player: any, board: any[][],ends:any[][], enemy:boolean) {
+    const container = document.createElement("div");
+    container.className = "player"
+
     const title = document.createElement('h1');
     title.className = "title";
     title.textContent = player.name + " ships";
@@ -25,8 +30,14 @@ function createBoard(player: any, board: any[][],ends:any[][], enemy:boolean) {
             grid.appendChild(element)
         }
     }
-    title.appendChild(grid);
-    main.appendChild(title);
+    container.appendChild(title);
+    container.appendChild(grid);
+    main.appendChild(container);
 }
+
+const updateHit = () => {
+    console.log("y")
+}
+
 
 export { createBoard }

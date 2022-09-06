@@ -11,9 +11,9 @@ class player {
 
     attack(x: number, y: number, gameboard: any) {
         if (this.alreadyHit(x, y)) return
-
         this.hitCoordinates.push([x, y]);
-        gameboard.receiveAttack(x, y);
+        
+        return gameboard.receiveAttack(x, y);
     }
 
     randomAttack(gameboard: any) {
