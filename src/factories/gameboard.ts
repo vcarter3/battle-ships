@@ -128,7 +128,7 @@ const Gameboard = () => {
             }
 
             board[row][col].hit(hitIndex);
-            return true;
+            return true
         }
         missedShots[row][col] = true;
         return false;

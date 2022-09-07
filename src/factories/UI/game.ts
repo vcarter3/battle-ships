@@ -21,15 +21,39 @@ const game = () => {
     player2Board.randomlyPlaceShips();
     createBoard(player2, player2Board.board,player2Board.shipEnds,true);
 
-
-    // player 1 attack enemy 
     const enemySea =  document.querySelector(".player .grid.Enemy").children as HTMLCollection | null;
     
-    for (let i = 0; i<enemySea.length; i++){
+    for (let i = 0; i< enemySea.length; i++){
         let current = enemySea[i] as HTMLElement | null;
-        enemySea[i].addEventListener("click", () => { 
+        enemySea[i].addEventListener("click", (e) => { 
+
             if(playerAttacksEnemy(parseInt(current.dataset.row), parseInt(current.dataset.col))){
+
+
+                (e.target as HTMLInputElement).dataset.contents = "hit";
+
+
+                let enemyattack = player2.randomAttack(player1Board);
                 
+                if (enemyattack){
+                    const playerSea = document.querySelectorAll(".main .grid.Your div");
+                    //console.log(playerSea)
+                    playerSea.forEach(square => {
+                        if ((parseInt((square as HTMLInputElement).dataset.row)) == enemyattack[0]
+                        && (parseInt((square as HTMLInputElement).dataset.col)) == enemyattack[1] ){
+                            
+                            if(player1Board.board[enemyattack[0]][enemyattack[1]]){
+                                (square as HTMLInputElement).dataset.contents = "hit"
+                            }else{
+                            (square as HTMLInputElement).dataset.contents = "miss"
+                            }
+                        }
+                    });
+
+                }
+                //console.log(player2Board.board)
+            }else if (!((e.target as HTMLInputElement).dataset.contents == "hit")){
+                (e.target as HTMLInputElement).dataset.contents = "miss";
             }
 
         });
@@ -39,6 +63,7 @@ const game = () => {
         return (player1.attack(row, col, player2Board))
     }
 
+    
 
     // enemy attack player one
 

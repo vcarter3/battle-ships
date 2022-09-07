@@ -35,9 +35,6 @@ function createBoard(player: any, board: any[][],ends:any[][], enemy:boolean) {
     main.appendChild(container);
 }
 
-const updateHit = () => {
-    console.log("y")
-}
 
 
 export { createBoard }

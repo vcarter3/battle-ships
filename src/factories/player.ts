@@ -30,7 +30,9 @@ class player {
         }
 
         this.hitCoordinates.push([xRandom, yRandom])
+        console.log(xRandom,yRandom)
         gameboard.receiveAttack(xRandom, yRandom)
+        return [xRandom,yRandom]
     }
 
     alreadyHit(x: number, y: number) {
