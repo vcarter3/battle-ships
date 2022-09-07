@@ -41,7 +41,7 @@ body {
             user-select: none;
     
             &[data-contents='ship'] {
-                background-color: $yellow-ship;
+                background: $yellow-ship;
                 //border-radius: 10%;
             }
             &[data-contents="ship-up"] {
@@ -68,12 +68,17 @@ body {
                 border-color: transparent $yellow-ship transparent transparent;
             }
             &[data-contents="ship-right"] {
-                
                 width: 0;
                 height: 0;
                 border-style: solid;
                 border-width: 1rem 0rem 1rem 2rem;
                 border-color: transparent  transparent transparent $yellow-ship;
+            }
+            &[data-contents="hit"]{
+                background-color: $green-ship;
+            }
+            &[data-contents="miss"]{
+                background-color: $red-light;
             }
         }
     
