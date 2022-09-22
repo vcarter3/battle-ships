@@ -1,11 +1,10 @@
-import { placeholder } from "@babel/types";
-import { string } from "yargs";
+
 import { Ship } from "./ship";
 
 const Gameboard = () => {
     const SIZE = 10;
     let board: any[][] = [];
-    let shipEnds :string[][]=[];
+    let shipEnds: string[][] = [];
     let missedShots: boolean[][] = [];
 
     const initBoard = () => {
@@ -31,14 +30,14 @@ const Gameboard = () => {
 
         if (vertical) {
             shipEnds[row][col] = "up"
-            shipEnds[row+ship.length-1][col] = "down"
+            shipEnds[row + ship.length - 1][col] = "down"
             for (let i = 0; i < ship.length; i++) {
                 board[row + i][col] = ship;
             }
             return true
         } else {
             shipEnds[row][col] = "left"
-            shipEnds[row][col+ship.length-1] = "right"
+            shipEnds[row][col + ship.length - 1] = "right"
             for (let i = 0; i < ship.length; i++) {
                 board[row][col + i] = ship;
             }
@@ -134,7 +133,7 @@ const Gameboard = () => {
         return false;
     };
 
-    return { initBoard, placeShip, receiveAttack, gameOver, board,shipEnds, randomlyPlaceShips };
+    return { initBoard, placeShip, receiveAttack, gameOver, board, shipEnds, randomlyPlaceShips };
 };
 
 export { Gameboard }

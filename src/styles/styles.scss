@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 
-$light-sea:#286AA2;
-$dark-sea:#0E3958;
-$yellow-ship:#DF982A;
-$yellow-dark:#D9BE33;
-$red-light:#CB542C;
+$light-sea: #286AA2;
+$dark-sea: #0E3958;
+$yellow-ship: #DF982A;
+$yellow-dark: #D9BE33;
+$red-light: #CB542C;
 $red-dark: #896E53;
 $green-ship: #58B853;
 $body-color: rgb(114, 114, 114);
@@ -24,7 +24,7 @@ body {
     text-align: center;
 
     .grid {
-        
+
         border: 1rem solid $dark-sea;
         border-radius: 10%;
         margin: 2rem;
@@ -32,27 +32,30 @@ body {
         display: grid;
         grid-template-columns: repeat(10, 2rem);
         grid-template-rows: repeat(10, 2rem);
-    
+
         gap: .2rem;
-    
+
         div {
+            cursor: pointer;
             border-radius: 20%;
             background-color: $dark-sea;
             user-select: none;
-    
+
             &[data-contents='ship'] {
                 background: $yellow-ship;
                 //border-radius: 10%;
             }
+
             &[data-contents="ship-up"] {
                 width: 0;
                 height: 0;
                 border: 1rem solid transparent;
                 border-top: 0;
-                border-bottom:2rem solid $yellow-ship;
+                border-bottom: 2rem solid $yellow-ship;
                 // background-color: $light-sea;
-                
+
             }
+
             &[data-contents="ship-down"] {
                 width: 0;
                 height: 0;
@@ -60,6 +63,7 @@ body {
                 border-width: 2rem 1rem 0 1rem;
                 border-color: $yellow-ship transparent transparent transparent;
             }
+
             &[data-contents="ship-left"] {
                 width: 0;
                 height: 0;
@@ -67,20 +71,34 @@ body {
                 border-width: 1rem 2rem 1rem 0rem;
                 border-color: transparent $yellow-ship transparent transparent;
             }
+
             &[data-contents="ship-right"] {
                 width: 0;
                 height: 0;
                 border-style: solid;
                 border-width: 1rem 0rem 1rem 2rem;
-                border-color: transparent  transparent transparent $yellow-ship;
+                border-color: transparent transparent transparent $yellow-ship;
             }
-            &[data-contents="hit"]{
-                background-color: $green-ship;
+
+            &[data-contents="hit"] {
+                //background-color: $green-ship;
+                background-image: url('https://c.tenor.com/KSTj3gSo4CIAAAAi/fire-lit.gif');
+                background-size: contain;
+                background-repeat: no-repeat;
+
+                -webkit-transition: background-color 1000ms linear;
+                -ms-transition: background-color 1000ms linear;
+                transition: background-color 1000ms linear;
+
+
+                cursor: default;
             }
-            &[data-contents="miss"]{
+
+            &[data-contents="miss"] {
                 background-color: $red-light;
+                cursor: default;
             }
         }
-    
+
     }
 }
