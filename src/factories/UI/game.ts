@@ -1,15 +1,20 @@
 import { Gameboard } from "../gameboard";
 import { player } from "../player"
 
-import { createBoard } from "./loadBoard";
+import { createBoard, createEndGame } from "./loadBoard";
 
 const game = () => {
+    let stopGame = false;
     const player1Board = Gameboard();
     const player1 = new player("Your");
 
     player1Board.initBoard();
     player1Board.randomlyPlaceShips();
     createBoard(player1, player1Board.board, player1Board.shipEnds, false);
+
+
+
+
 
     const player2Board = Gameboard();
     const player2 = new player("Enemy");
@@ -51,23 +56,29 @@ const game = () => {
             // end game as computer hit all possible targets
         }
 
-
+        if (player2Board.gameOver()) {
+            createEndGame("You won!");
+            stopGame = true;
+        } else if (player1Board.gameOver()) {
+            createEndGame("You lost!");
+            stopGame = true;
+        }
 
     }
 
     for (let i = 0; i < enemySea.length; i++) {
         let current = enemySea[i] as HTMLElement | null;
-        
+
         enemySea[i].addEventListener("click", (e) => {
 
-            if (player2Board.gameOver() || player1Board.gameOver()) {
-                console.log("winner!")
-                return 
-            } 
+            if(stopGame){return}
 
             playRound(parseInt(current.dataset.row), parseInt(current.dataset.col),
                 (e.target as HTMLInputElement))
         });
+
+
+
     }
 }
 
