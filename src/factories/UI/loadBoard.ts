@@ -1,4 +1,5 @@
 import { functionDeclaration } from "@babel/types";
+import { player } from "../player";
 
 const main = document.querySelector(".main");
 
@@ -35,6 +36,22 @@ function createBoard(player: any, board: any[][],ends:any[][], enemy:boolean) {
     main.appendChild(container);
 }
 
+function createEndGame(result:string){
+    const end = document.createElement("div");
+    end.className = "ending"
+
+    const title = document.createElement('h1');
+    title.textContent = result; 
+
+    const button = document.createElement("button");
+    button.className = "reset";
+    button.textContent = "play again?"
+    end.appendChild(title);
+    end.appendChild(button);
+
+    main.appendChild(end);
+}
 
 
-export { createBoard }
+
+export { createBoard, createEndGame }
