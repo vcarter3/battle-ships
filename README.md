@@ -1,6 +1,6 @@
 ## A battleship game clone for practice
 
-#### 🧪 [Live Demo](nolinkyet)
+#### 🧪 [Live Demo](https://vcarter3.github.io/battle-ships/)
 
 
 #### 🔔  Features
