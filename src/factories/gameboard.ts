@@ -108,32 +108,14 @@ const Gameboard = () => {
     const receiveAttack = (row: number, col: number) => {
         // does it hit a ship
         if (board[row][col]) {
-            // hit a ship!
-
-            let hitIndex = 0
-            // is horizontal   eg. 0 1 2 3 4
-            if (col > 0 && board[row][col - 1] || col < SIZE - 1 && board[row][col + 1]) {
-                let i = 0
-                while (col - i >= 0 && board[row][col - i]) {
-                    hitIndex++;
-                    i++;
-                }
-            } else if (row > 0 && board[row - 1][col] || row < SIZE - 1 && board[row + 1][col]) {
-                let i = 0
-                while (col - i >= 0 && board[row - i][col]) {
-                    hitIndex++;
-                    i++;
-                }
-            }
-
-            board[row][col].hit(hitIndex);
+            board[row][col].hit(1);
             return true
         }
         missedShots[row][col] = true;
         return false;
     };
 
-    return { initBoard, placeShip, receiveAttack, gameOver, board, shipEnds, randomlyPlaceShips };
+    return { initBoard, placeShip, receiveAttack, gameOver, board, missedShots, shipEnds, randomlyPlaceShips };
 };
 
 export { Gameboard }
