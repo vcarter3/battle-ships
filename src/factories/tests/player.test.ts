@@ -2,11 +2,12 @@ import { describe, expect, test, beforeEach } from '@jest/globals';
 import { player } from '../player';
 
 describe('player module', () => {
-
     let playerTest: player;
+    let enemyTest: player;
 
     beforeEach(() => {
         playerTest = new player("test");
+        enemyTest = new player("enemy");
     });
 
     test('name correct', () => {
@@ -24,6 +25,13 @@ describe('player module', () => {
         expect(playerTest.getNeighbours(9,9).sort()).toEqual([[8,9], [9,8]].sort());
         expect(playerTest.getNeighbours(5,5).sort()).toEqual([[5,6], [6,5], [4,5] , [5,4]].sort());
     });
+
+    // test('player attack enemy twice', () => {
+    //     expect(playerTest.attack(0,0,))
+
+
+        
+    // })
 
 
 });
