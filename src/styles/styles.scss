@@ -14,14 +14,9 @@ body {
     color: $body-color;
     background-color: $light-sea;
     color: $dark-sea;
-
 }
 
 .main {
-
-    
-
-
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -106,11 +101,20 @@ body {
 
     }
 
-    .ending{
+    .ending {
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
         position: absolute;
+        padding: 20vh 0px;
+        width: 100%;
+        backdrop-filter: blur(1px);
     }
 
     button {
+        margin: 0 1rem;
         background: $yellow-dark;
         font-family: inherit;
         padding: 0.6em 0.7em;
@@ -120,15 +124,97 @@ body {
         border-radius: 0.4em;
         box-shadow: 0.1em 0.1em;
         cursor: pointer;
-       }
-       
-       button:hover {
+    }
+
+    button:hover {
         transform: translate(-0.05em, -0.05em);
         box-shadow: 0.15em 0.15em;
-       }
-       
-       button:active {
+    }
+
+    button:active {
         transform: translate(0.05em, 0.05em);
         box-shadow: 0.05em 0.05em;
-       }
+    }
+
+    .placeShips {
+
+        .container {
+            width: fit-content;
+            border: 1rem solid $dark-sea;
+            border-radius: 10%;
+            margin: 2rem;
+            padding: 0.5rem;
+            position: relative;
+
+            .grid {
+                margin: 0;
+                padding: 0;
+                border: none;
+                width: fit-content;
+
+                .dropzone {
+                    user-select: none;
+                    border: dashed .05rem transparent;
+                    transition: background-color 0.3s;
+                }
+
+                .drop-active {
+                    border-color: #aaa;
+                }
+
+                .drop-target {
+                    background-color: #29e;
+                    border-color: #fff;
+                    border-style: solid;
+                }
+            }
+        }
+
+        
+
+        .dropzone {
+            cursor: default;
+        }
+
+        .ship {
+            
+            top:0.5rem;
+            left: 0.5rem;
+            z-index: 1;
+            position: absolute;
+            display: flex;
+            flex-direction: row;
+            touch-action: none;
+            transform: translate(0px, 0px);
+            transition: background-color 0.3s;
+            width: fit-content;
+            height: fit-content;
+
+            .part {
+                background: gray;
+                border-radius: 20%;
+                height: 2rem;
+                width: 2rem;
+                margin: 0.1rem;
+            }
+        }
+
+        .ship.ver {
+            flex-direction: column;
+            //gap: 0.2rem;
+        }
+
+        .ship .part.can-drop {
+            background-color: $green-ship;
+        }
+
+        .ship .part.cannot-drop {
+            background-color: $red-light;
+        }
+
+        .ship .part.dropped {
+            background-color: $yellow-ship;
+        }
+    }
+
 }
