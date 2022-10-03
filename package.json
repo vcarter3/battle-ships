@@ -16,5 +16,8 @@
   "scripts": {
     "test": "jest",
     "build": "webpack"
+  },
+  "dependencies": {
+    "interactjs": "^1.10.17"
   }
 }
