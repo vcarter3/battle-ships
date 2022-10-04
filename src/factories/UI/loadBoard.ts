@@ -61,15 +61,11 @@ function placeShipsBoard() {
         "destroyer": 2
     };
 
-    let offsetY = 0;
 
     for (let key in dict) {
         const ship = document.createElement("div");
         ship.className = "ship";
         ship.dataset.ship = key;
-        ship.style.transform = "translateY(0"+ offsetY.toString() +"px)"
-        offsetY += 20;
-
         for (let j = 0; j < dict[key]; j++) {
             const part = document.createElement("div");
             part.className = "part";

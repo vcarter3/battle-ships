@@ -44,6 +44,8 @@ const removeClassFromCells = (cells: NodeList, coordinates: number[][], classToC
 }
 
 const readPlayerInput = () => {
+    placeShipsBoard();
+
     const cells = document.querySelectorAll(".placeShips .container .grid .dropzone") as NodeList;
 
     let activeCoordinates: { [key: string]: number[][] } = {
@@ -53,6 +55,16 @@ const readPlayerInput = () => {
         "submarine": [],
         "destroyer": []
     };
+
+    function shipsPlaced() {
+        for (let i = 0; i < Object.values(activeCoordinates).length; i++) {
+            if (Object.values(activeCoordinates)[i].length < 1) {
+                return false
+            }
+        }
+
+        return activeCoordinates
+    }
 
 
     const dict: { [key: string]: number } = {
@@ -65,7 +77,7 @@ const readPlayerInput = () => {
 
     function dragMoveListener(event: any) {
         var target = event.target;
-        event.target.style.transform = ""
+
         // keep the dragged position in the data-x/data-y attributes
         var x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
         var y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
@@ -86,7 +98,7 @@ const readPlayerInput = () => {
         // only accept elements matching this CSS selector
         accept: ".ship",
         // Require a 15% element overlap for a drop to be possible
-        overlap: 0.15,
+        overlap: 0.1,
         // listen for drop related events:
         ondropactivate: function (event) {
             // add active dropzone feedback (grey border)
@@ -94,10 +106,10 @@ const readPlayerInput = () => {
         },
 
         ondragenter: function (event) {
+            
+
             let draggableElement = event.relatedTarget;
             let dropzoneElement = event.target;
-
-            
 
             // original ** feedback the possibility of a drop to (head) blue
             //dropzoneElement.classList.add("drop-target");
@@ -138,6 +150,7 @@ const readPlayerInput = () => {
                     child.classList.add("can-drop");
                 }
             }
+            
 
 
         },
@@ -195,6 +208,8 @@ const readPlayerInput = () => {
                 }
             })
 
+
+            let newActive = [];
             if (overlap) {
                 for (const child of draggableElement.children) {
                     child.classList.remove("can-drop");
@@ -206,19 +221,21 @@ const readPlayerInput = () => {
                     child.classList.remove("can-drop");
                     child.classList.remove("cannot-drop");
                     child.classList.add("dropped");
+
+
+                }
+
+                for (let i = 0; i < shipLength; i++) {
+                    newActive.push(
+                        [
+                            parseInt(event.target.dataset.row),
+                            parseInt(event.target.dataset.col) - i
+                        ]
+                    );
                 }
             }
-            let newActive = [];
 
-            for (let i = 0; i < shipLength; i++) {
-
-                newActive.push(
-                    [
-                        parseInt(event.target.dataset.row),
-                        parseInt(event.target.dataset.col) - i
-                    ]
-                );
-            }
+         
 
             activeCoordinates[event.relatedTarget.dataset.ship] = newActive;
             event.target.dataset.type = event.relatedTarget.dataset.ship;
@@ -237,8 +254,11 @@ const readPlayerInput = () => {
         // })
         .draggable({
             // origin: "parent",
+            
+
             modifiers: [
 
+               
                 interact.modifiers.snap({
                     targets: [interact.snappers.grid({ x: 3, y: 3 })]
                 }),
@@ -255,29 +275,102 @@ const readPlayerInput = () => {
         });
 
 
-    const submit = document.querySelector(".details .submit")
-    console.log(submit)
+    return { activeCoordinates, shipsPlaced }
 
-    const random = document.querySelector(".details .random")
-    console.log(random)
+
 
 }
 
-
-
-
-
 const game = () => {
     let stopGame = false;
-
-    placeShipsBoard();
-
     // const carrier = new Ship(5);
     // const battleship = new Ship(4);
     // const cruiser = new Ship(3);
     // const submarine = new Ship(3);
     // const destroyer = new Ship(2);
-    readPlayerInput();
+
+
+    // let test =
+    // {
+    //     "carrier": [
+    //         [
+    //             3,
+    //             9
+    //         ],
+    //         [
+    //             3,
+    //             8
+    //         ],
+    //         [
+    //             3,
+    //             7
+    //         ],
+    //         [
+    //             3,
+    //             6
+    //         ],
+    //         [
+    //             3,
+    //             5
+    //         ]
+    //     ],
+    //     "battleship": [
+    //         [
+    //             9,
+    //             9
+    //         ],
+    //         [
+    //             9,
+    //             8
+    //         ],
+    //         [
+    //             9,
+    //             7
+    //         ],
+    //         [
+    //             9,
+    //             6
+    //         ]
+    //     ],
+    //     "cruiser": [
+    //         [
+    //             0,
+    //             7
+    //         ],
+    //         [
+    //             0,
+    //             6
+    //         ],
+    //         [
+    //             0,
+    //             5
+    //         ]
+    //     ],
+    //     "submarine": [
+    //         [
+    //             3,
+    //             2
+    //         ],
+    //         [
+    //             3,
+    //             1
+    //         ],
+    //         [
+    //             3,
+    //             0
+    //         ]
+    //     ],
+    //     "destroyer": [
+    //         [
+    //             6,
+    //             1
+    //         ],
+    //         [
+    //             6,
+    //             0
+    //         ]
+    //     ]
+    // }
 
 
 
@@ -285,7 +378,7 @@ const game = () => {
     const player1 = new player("Your");
 
     player1Board.initBoard();
-    player1Board.randomlyPlaceShips();
+    player1Board.randomlyPlaceShips();//.userPlaceShips([0,0]);
     createBoard(player1, player1Board.board, player1Board.shipEnds, false);
 
 
@@ -356,4 +449,4 @@ const game = () => {
     }
 }
 
-export { game }
+export { game, readPlayerInput }
