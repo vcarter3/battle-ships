@@ -1,24 +1,28 @@
-import { game, readPlayerInput} from "./factories/UI/game";
+import { game} from "./factories/UI/game";
+import { readPlayerInput } from "./factories/UI/readPlayer";
+
 import "./styles/styles.scss";
 
 const user = readPlayerInput();
 
-const submit = document.querySelector(".details .submit")
+const submit = document.querySelector(".details .submit");
+const random = document.querySelector(".details .random");
+const placeShipsBoard = <HTMLElement> document.querySelector(".placeShips");
+const instructions = <HTMLElement> document.querySelector(".instructions");
+
 submit.addEventListener("click", () => {
-    
     if(user.shipsPlaced()){
-        console.log("good to go")
+        placeShipsBoard.style.display="none";
+        game(user.getStarts(), user.getDirection());
     }else{
-        console.log(user.shipsPlaced())
+        instructions.classList.add("invalid");
+        setTimeout(()=> instructions.classList.remove("invalid"), 200)
     }
-    console.log(user.activeCoordinates)
-    //return activeCoordinates
 })
 
-const random = document.querySelector(".details .random")
 random.addEventListener("click", () => {
-    console.log("random")
-    game();
+    placeShipsBoard.style.display="none";
+    game([],[]);
 })
 
 

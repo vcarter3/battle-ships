@@ -1,7 +1,8 @@
 import { functionDeclaration } from "@babel/types";
 import { player } from "../player";
+import { Fireworks } from 'fireworks-js'
 
-import interact from 'interactjs'
+
 
 
 const main = document.querySelector(".main");
@@ -84,9 +85,20 @@ function placeShipsBoard() {
             grid.appendChild(element);
         }
     }
-    const para = document.createElement("p");
-    para.className = "instructions";
-    para.textContent = "Double tap to change ship direction \n Ships cannot touch"
+    const instructions = document.createElement("ul");
+    instructions.className = "instructions";
+
+    let help = ["Drag to place ships", "Double tap to change ship direction",  "Ships cannot touch"];
+
+    help.forEach(
+        (sentence) =>{
+            let elem = document.createElement("li");
+            elem.textContent = sentence;
+            instructions.appendChild(elem);
+        }
+    )
+        
+    
 
     const button = document.createElement("button");
     button.className = "submit";
@@ -107,7 +119,7 @@ function placeShipsBoard() {
     end.appendChild(gridBorder);
 
 
-    details.appendChild(para);
+    details.appendChild(instructions);
     details.appendChild(button);
     details.appendChild(random);
 
@@ -117,21 +129,33 @@ function placeShipsBoard() {
     main.appendChild(end);
 }
 
-function createEndGame(result: string) {
+function createEndGame(playerWon: boolean) {
     const end = document.createElement("div");
     end.className = "ending"
 
     const title = document.createElement('h1');
-    title.textContent = result;
+    
 
     const button = document.createElement("button");
     button.className = "reset";
     button.textContent = "play again?"
+
+    if(playerWon){
+        title.textContent = "You won!";
+        //const container = document.querySelector("body")
+        const fireworks = new Fireworks(end, { /* options */ })
+        fireworks.start();
+    }else{
+        title.textContent = "You lost!";
+    }
+
     end.appendChild(title);
     end.appendChild(button);
-
     main.appendChild(end);
-}
+    }
+
+
+
 
 
 

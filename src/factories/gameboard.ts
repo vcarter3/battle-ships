@@ -44,14 +44,17 @@ const Gameboard = () => {
     };
 
     const wrongPlacement = (row: number, col: number, ship: any, vertical: boolean) => {
-
+        
         if (vertical) {
-            if ((row + ship.length) > 9) { return true }
+            if ((row + ship.length) > 10) { return true }
             for (let i = 0; i < ship.length; i++) {
                 if (board[row + i][col]) { return true }
             }
         } else {
-            if ((col + ship.length) > 9) { return true }
+            
+            if ((col + ship.length) > 10) { 
+                
+                return true }
             for (let i = 0; i < ship.length; i++) {
                 if (board[row][col + i]) { return true }
             }
@@ -59,7 +62,7 @@ const Gameboard = () => {
     }
 
 
-    const userPlaceShips = (coordinates:number[]) => {
+    const userPlaceShips = (shipCoordinates: number[][], shipDirection: boolean[]) => {
         let ships: Ship[] = [];
         const carrier = new Ship(5);
         const battleship = new Ship(4);
@@ -68,13 +71,14 @@ const Gameboard = () => {
         const destroyer = new Ship(2);
 
         ships.push(carrier, battleship, cruiser, submarine, destroyer);
-        
-        placeShip(coordinates[0], coordinates[1], ships[0], false);
 
+        for (let i = 0; i < ships.length; i++) {
+            placeShip(shipCoordinates[i][0], shipCoordinates[i][1], ships[i], shipDirection[i]);
+        }
 
     }
 
-    
+
 
 
     const randomlyPlaceShips = () => {
@@ -131,7 +135,7 @@ const Gameboard = () => {
         return false;
     };
 
-    return { initBoard,userPlaceShips, placeShip, receiveAttack, gameOver, board, missedShots, shipEnds, randomlyPlaceShips };
+    return { initBoard, userPlaceShips, placeShip, receiveAttack, gameOver, board, missedShots, shipEnds, randomlyPlaceShips };
 };
 
 export { Gameboard }
