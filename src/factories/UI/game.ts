@@ -1,6 +1,6 @@
 import { Gameboard } from "../gameboard";
 import { player } from "../player";
-import { createBoard, createEndGame, placeShipsBoard } from "./loadBoard";
+import { createBoard, createEndGame, createMainDetails } from "./loadBoard";
 
 const game = (shipCoordinates: number[][], direction: boolean[]) => {
     let stopGame = false;
@@ -12,12 +12,23 @@ const game = (shipCoordinates: number[][], direction: boolean[]) => {
     } else {
         player1Board.userPlaceShips(shipCoordinates, direction);
     }
+
+
+
+
     createBoard(player1, player1Board.board, player1Board.shipEnds, false);
     const player2Board = Gameboard();
     const player2 = new player("Enemy");
     player2Board.initBoard();
     player2Board.randomlyPlaceShips();
+
+
+
     createBoard(player2, player2Board.board, player2Board.shipEnds, true);
+
+    createMainDetails();
+
+
     const enemySea = document.querySelector(".player .grid.Enemy").children as HTMLCollection | null;
     const playerSea = document.querySelectorAll(".main .grid.Your div");
     const playRound = (playerSelectionX: number, playerSelectionY: number, selected: HTMLInputElement) => {

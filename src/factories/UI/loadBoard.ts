@@ -6,6 +6,7 @@ import { Fireworks } from 'fireworks-js'
 
 
 const main = document.querySelector(".main");
+const players = document.querySelector(".players");
 
 function createBoard(player: any, board: any[][], ends: any[][], enemy: boolean) {
     const container = document.createElement("div");
@@ -24,7 +25,7 @@ function createBoard(player: any, board: any[][], ends: any[][], enemy: boolean)
             element.dataset.row = i.toString();
             element.dataset.col = j.toString();
 
-            if (board[i][j] != null) { //&& !enemy) {
+            if (board[i][j] != null && !enemy) {
                 if (ends[i][j] != null) {
                     element.dataset.contents = "ship" + "-" + ends[i][j];
                 } else {
@@ -37,7 +38,50 @@ function createBoard(player: any, board: any[][], ends: any[][], enemy: boolean)
     }
     container.appendChild(title);
     container.appendChild(grid);
+
+
+
     main.appendChild(container);
+}
+
+function createMainDetails() {
+
+
+    const container = document.createElement("div");
+    container.className = "players"
+
+
+
+
+
+
+    const details = document.createElement("div");
+    details.className = "details";
+
+    const instructions = document.createElement("ul");
+    instructions.className = "instructions";
+
+    let help = ["Pick a shot on the enemy's board", "Win by sinking all of the enemy's ships"];
+
+    help.forEach(
+        (sentence) => {
+            let elem = document.createElement("li");
+            elem.textContent = sentence;
+            instructions.appendChild(elem);
+        }
+    )
+
+    const button = document.createElement("button");
+    button.className = "reset";
+    button.textContent = "reset"
+
+    button.addEventListener("click", () => {
+        location.reload();
+    })
+
+    details.appendChild(instructions)
+    details.appendChild(button)
+    main.appendChild(details);
 }
 
 function placeShipsBoard() {
@@ -88,17 +132,17 @@ function placeShipsBoard() {
     const instructions = document.createElement("ul");
     instructions.className = "instructions";
 
-    let help = ["Drag to place ships", "Double tap to change ship direction",  "Ships cannot touch"];
+    let help = ["Drag to place ships", "Double tap to change ship direction", "Ships cannot touch"];
 
     help.forEach(
-        (sentence) =>{
+        (sentence) => {
             let elem = document.createElement("li");
             elem.textContent = sentence;
             instructions.appendChild(elem);
         }
     )
-        
-    
+
+
 
     const button = document.createElement("button");
     button.className = "submit";
@@ -110,21 +154,16 @@ function placeShipsBoard() {
 
     const details = document.createElement("div");
     details.className = "details";
-    
-
-
-
 
     gridBorder.appendChild(grid)
     end.appendChild(gridBorder);
-
 
     details.appendChild(instructions);
     details.appendChild(button);
     details.appendChild(random);
 
     end.appendChild(details);
-   
+
 
     main.appendChild(end);
 }
@@ -134,29 +173,34 @@ function createEndGame(playerWon: boolean) {
     end.className = "ending"
 
     const title = document.createElement('h1');
-    
+
 
     const button = document.createElement("button");
     button.className = "reset";
     button.textContent = "play again?"
 
-    if(playerWon){
+    button.addEventListener("click", () => {
+        location.reload();
+    })
+
+    if (playerWon) {
         title.textContent = "You won!";
         //const container = document.querySelector("body")
-        const fireworks = new Fireworks(end, { /* options */ })
+        const fireworks = new Fireworks(main, {
+            explosion: 10, intensity: 8, lineStyle: 'square',
+        })
         fireworks.start();
-    }else{
+    } else {
         title.textContent = "You lost!";
     }
-
     end.appendChild(title);
     end.appendChild(button);
     main.appendChild(end);
-    }
+}
 
 
 
 
 
 
-export { createBoard, createEndGame, placeShipsBoard }
+export { createBoard, createEndGame, placeShipsBoard, createMainDetails }
