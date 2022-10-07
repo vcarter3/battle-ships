@@ -4,7 +4,9 @@
 
 
 #### 🔔  Features
+- drag and drop
 - main menu
+- fireworks!
  
 #### 🛠️  Built with
 - TypeScript
@@ -12,3 +14,5 @@
 - Html
 - Webpack
 - Jest for testing
+- Firework Js for animiation
+- Interact Js for drag and drop
