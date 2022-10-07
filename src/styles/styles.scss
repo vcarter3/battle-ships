@@ -18,9 +18,22 @@ body {
 
 .main {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     text-align: center;
+
+    .details {
+        width: 100vw;
+
+        .instructions {
+            font-weight: bold;
+            text-align: left;
+            width: fit-content;
+            margin: auto;
+            margin-bottom: 1rem;
+        }
+    }
 
     .grid {
 
@@ -40,6 +53,10 @@ body {
             background-color: $dark-sea;
             user-select: none;
 
+            &:hover{
+                filter: brightness(1.2);
+            }
+
             &[data-contents='ship'] {
                 background: $yellow-ship;
                 //border-radius: 10%;
@@ -48,11 +65,9 @@ body {
             &[data-contents="ship-up"] {
                 width: 0;
                 height: 0;
-                border: 1rem solid transparent;
-                border-top: 0;
-                border-bottom: 2rem solid $yellow-ship;
-                // background-color: $light-sea;
-
+                border-style: solid;
+                border-width: 0 1rem 2rem 1rem;
+                border-color: transparent transparent $yellow-ship transparent;
             }
 
             &[data-contents="ship-down"] {
@@ -85,11 +100,11 @@ body {
                 background-size: contain;
                 background-repeat: no-repeat;
 
-                -webkit-transition: background-color 1000ms linear;
-                -ms-transition: background-color 1000ms linear;
-                transition: background-color 1000ms linear;
 
 
+                // -webkit-transition: background-color 1000ms linear;
+                // -ms-transition: background-color 1000ms linear;
+                // transition: background-color 1000ms linear;
                 cursor: default;
             }
 
@@ -100,17 +115,21 @@ body {
         }
 
     }
+    canvas {
+        position: absolute;
+        top: 0;
+    }
 
     .ending {
-        canvas {}
-
         h1 {
             color: white;
             text-shadow: 2px 2px 4px #000000;
         }
-
-        position: absolute;
-        padding: 20vh 0px;
+        button{
+            z-index: 1;
+        }
+        position: fixed;
+        padding: 15vh 0 100vh 0px;
         width: 100%;
         backdrop-filter: blur(1px);
     }
@@ -139,6 +158,10 @@ body {
     }
 
     .placeShips {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
 
         .container {
             width: fit-content;
@@ -173,30 +196,30 @@ body {
         }
 
         .details {
-            .instructions{
-                //list-style: none; 
-                text-align: left;
-                li{
-                }
-            }
             .instructions.invalid {
                 animation: shake 0.2s ease-in-out 0s 2;
             }
+
             @keyframes shake {
                 0% {
-                    margin-left: 0rem;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
 
                 25% {
-                    margin-left: 0.5rem;
+                    margin-left: 40%;
+                    margin-right: auto;
+
                 }
 
                 75% {
-                    margin-left: -0.5rem;
+                    margin-right: 40%;
+                    margin-left: auto;
                 }
 
                 100% {
-                    margin-left: 0rem;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
             }
         }
@@ -206,6 +229,7 @@ body {
         }
 
         .ship {
+            background-color: transparent;
             top: 0.5rem;
             left: 0.5rem;
             z-index: 1;
@@ -224,26 +248,110 @@ body {
                 height: 2rem;
                 width: 2rem;
                 margin: 0.1rem;
+                border-color: transparent gray transparent transparent;
             }
         }
-
-        .ship.ver {
-            flex-direction: column;
-            //gap: 0.2rem;
-        }
-
+        // ship triangles
         .ship .part.can-drop {
             background-color: $green-ship;
+            border-color: transparent $green-ship transparent transparent;
+
+            &:last-child {
+                border-color: transparent transparent transparent $green-ship;
+                border-width: 1rem 0rem 1rem 2rem;
+            }
+
         }
 
         .ship .part.cannot-drop {
             background-color: $red-light;
+            border-color: transparent $red-light transparent transparent;
+
+            &:last-child {
+                border-width: 1rem 0rem 1rem 2rem;
+                border-color: transparent transparent transparent $red-light;
+            }
+
         }
 
         .ship .part.dropped {
             background-color: $yellow-ship;
+            border-color: transparent $yellow-ship transparent transparent;
 
+            &:last-child {
+                border-color: transparent transparent transparent $yellow-ship;
+                border-width: 1rem 0rem 1rem 2rem;
+            }
+        }
+
+        .ship {
+            .part {
+                &:first-child {
+                    background-color: transparent;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 1rem 2rem 1rem 0rem;
+                }
+
+                &:last-child {
+                    background-color: transparent;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 1rem 0rem 1rem 2rem;
+                    border-color: transparent transparent transparent gray;
+                }
+            }
+        }
+        .ship.ver {
+            flex-direction: column;
+            .part {
+                &:first-child {
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 0 1rem 2rem 1rem;
+                    border-color: transparent transparent gray transparent;
+                }
+
+                &:last-child {
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 2rem 1rem 0 1rem;
+                    border-color: gray transparent transparent transparent;
+                }
+            }
+
+            .part.can-drop {
+                &:first-child {
+                    border-color: transparent transparent $green-ship transparent;
+                }
+                &:last-child {
+                    border-color: $green-ship transparent transparent transparent;
+                }
+            }
+
+            .part.cannot-drop {
+                &:first-child {
+                    border-color: transparent transparent $red-light transparent;
+                }
+
+                &:last-child {
+                    border-color: $red-light transparent transparent transparent;
+                }
+            }
+
+            .part.dropped {
+                &:first-child {
+                    border-color: transparent transparent $yellow-ship transparent;
+                }
+
+                &:last-child {
+                    border-color: $yellow-ship transparent transparent transparent;
+                }
+            }
         }
     }
-
 }
