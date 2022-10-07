@@ -10,6 +10,7 @@ const random = document.querySelector(".details .random");
 const placeShipsBoard = <HTMLElement> document.querySelector(".placeShips");
 const instructions = <HTMLElement> document.querySelector(".instructions");
 
+
 submit.addEventListener("click", () => {
     if(user.shipsPlaced()){
         placeShipsBoard.style.display="none";
@@ -24,6 +25,7 @@ random.addEventListener("click", () => {
     placeShipsBoard.style.display="none";
     game([],[]);
 })
+
 
 
 
